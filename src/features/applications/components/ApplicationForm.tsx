@@ -71,7 +71,7 @@ export default function ApplicationForm({ departments, initialData, onSubmit }: 
         <div className="bg-white darkx:bg-gray-800 border border-gray-200 darkx:border-gray-700 rounded-xl p-6 sm:p-8">
           <h2 className="text-lg sm:text-xl font-semibold text-gray-900 darkx:text-white mb-4">Select Department</h2>
           <select
-            value={selectedDepartment?.id || ""}
+            value=""
             onChange={(e) => {
               const dept = departments.find((d) => d.id === e.target.value)
               setSelectedDepartment(dept || null)

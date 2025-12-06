@@ -26,9 +26,7 @@ export default function FaqsListPage() {
   const [searchTerm, setSearchTerm] = useState("")
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      distance: 8,
-    }),
+    useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),

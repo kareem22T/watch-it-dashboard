@@ -21,6 +21,7 @@ import {
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
+import { InfoIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -33,7 +34,7 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
-    subItems: [{ name: "Statistics", path: "/", pro: false }],
+    path: "/"
   },
   {
     icon: <FolderIcon />,
@@ -49,6 +50,11 @@ const navItems: NavItem[] = [
     name: "Users",
     icon: <UserIcon />,
     path: "/users"
+  },
+  {
+    name: "FAQ",
+    icon: <InfoIcon />,
+    subItems: [{ name: "Categories", path: "/faqs", pro: false }, { name: "Questions", path: "/faqs/faqs-list", pro: false }]
   },
   {
     name: "Messages",

@@ -40,7 +40,7 @@ export default function CategoryForm({ initialData, onSubmit }: CategoryFormProp
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl">
+    <form onSubmit={handleSubmit}>
       <div className="bg-white darkx:bg-gray-800 border border-gray-200 darkx:border-gray-700 rounded-xl p-6 sm:p-8 space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 darkx:text-gray-300 mb-2">Category Title</label>

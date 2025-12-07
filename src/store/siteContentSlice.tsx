@@ -36,7 +36,7 @@ const initialState: SiteContentState = {
   content: {
     home: {
       hero: {
-        image: "/abstract-hero-banner.png",
+        image: "",
         title: "Welcome to Our Platform",
         description: "Discover amazing features and content management capabilities.",
         buttonText: "Get Started",

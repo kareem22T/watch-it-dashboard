@@ -143,65 +143,6 @@ const dummyApplications: Application[] = [
     updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
   },
   {
-    id: "app-3",
-    userId: "user-3",
-    userName: "James Chen",
-    departmentId: "scriptwriting",
-    departmentName: "Scriptwriting",
-    status: "rejected",
-    rating: 2,
-    ratingComment:
-      "While the premise is interesting, the script needs significant development and revision. Consider resubmitting after addressing structural issues.",
-    steps: [
-      {
-        stepId: "scriptwriting-step-1",
-        stepTitle: "Contact Information",
-        formData: {
-          contactName: "James Chen",
-          contactEmail: "james.chen@email.com",
-          phoneNumber: "+1 (555) 456-7890",
-          location: "Vancouver, Canada",
-          portfolioUrl: "https://jameschen-scripts.com",
-        },
-        completed: true,
-      },
-      {
-        stepId: "scriptwriting-step-2",
-        stepTitle: "Script Details",
-        formData: {
-          scriptTitle: "Code Red",
-          synopsis: "Action-packed thriller about a hacker on the run...",
-          genre: "thriller",
-          format: "Feature Film",
-          runtime: "110 minutes",
-        },
-        completed: true,
-      },
-      {
-        stepId: "scriptwriting-step-3",
-        stepTitle: "Writer Experience",
-        formData: {
-          writingExperience: "2 years of hobbyist screenwriting",
-          previousWorks: "Unpublished scripts",
-          awards: "",
-        },
-        completed: true,
-      },
-      {
-        stepId: "scriptwriting-step-4",
-        stepTitle: "Script Upload",
-        formData: {
-          scriptFile: "code-red-draft.pdf",
-          additionalNotes: "First serious screenplay submission",
-        },
-        completed: true,
-      },
-    ],
-    completionPercentage: 100,
-    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
     id: "app-4",
     userId: "user-4",
     userName: "Emma Wilson",

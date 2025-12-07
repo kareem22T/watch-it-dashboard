@@ -73,7 +73,7 @@ export default function CategoriesTable({
                   <img
                     src={category.iconImage || "/placeholder.svg"}
                     alt={`${category.title} icon`}
-                    className="w-10 h-10 rounded-lg object-cover border border-gray-200 darkx:border-gray-700"
+                    className="w-10 h-10 rounded-lg object-cover darkx:border-gray-700"
                   />
                 ) : (
                   <span className="text-gray-500 darkx:text-gray-400 text-sm">No icon</span>

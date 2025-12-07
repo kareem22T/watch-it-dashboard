@@ -34,7 +34,7 @@ const initialState: FaqsState = {
       id: "general",
       title: "General",
       description: "General questions and information",
-      iconImage: "/help-circle-icon.jpg",
+      iconImage: "/help-circle-icon.png",
       order: 1,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

@@ -5,8 +5,24 @@ import type { RootState } from "../../store/store"
 import { BarChartOne } from "./components/charts/bar-chart-one"
 import { LineChartOne } from "./components/charts/line-chart-one"
 import { DepartmentsChart } from "./components/charts/departments-chart"
-import { Users, CheckCircle, TrendingUp, Clock, Target, MessageSquare, Star } from "lucide-react"
+import { Users, Globe, TrendingUp, Building2, CheckCircle, Clock, Target, MessageSquare, Star, StopCircleIcon, BanIcon } from "lucide-react"
 import { Link } from "react-router"
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  LineChart,
+  Line,
+} from "recharts"
+
 
 export default function DashboardHome() {
   const applications = useSelector((state: RootState) => state.applications.applications)
@@ -23,6 +39,58 @@ export default function DashboardHome() {
   const rejectedApps = applications.filter((a) => a.status === "rejected").length
   const topRatedApps = applications.filter((a) => a.rating && a.rating >= 4).length
   const lastMessages = messages.slice(-5).reverse()
+
+  const languageVisitsData = [
+  { language: "English", visits: 1245, percentage: 65 },
+  { language: "Arabic", visits: 675, percentage: 35 },
+]
+
+// Campaign/UTM source data
+const campaignData = [
+  { source: "Google", visits: 450, conversions: 32 },
+  { source: "Facebook", visits: 380, conversions: 28 },
+  { source: "LinkedIn", visits: 290, conversions: 22 },
+  { source: "Twitter", visits: 185, conversions: 14 },
+  { source: "Direct", visits: 415, conversions: 31 },
+]
+
+// Last registered users
+const lastRegisteredUsers = [
+  { id: 1, name: "Ahmed Hassan", email: "ahmed.hassan@example.com", role: "Editor", registeredAt: "2024-12-05" },
+  { id: 2, name: "Sarah Smith", email: "sarah.smith@example.com", role: "Director", registeredAt: "2024-12-04" },
+  { id: 3, name: "John Doe", email: "john.doe@example.com", role: "Cinematographer", registeredAt: "2024-12-03" },
+  { id: 4, name: "Emma Wilson", email: "emma.wilson@example.com", role: "Producer", registeredAt: "2024-12-02" },
+  { id: 5, name: "Michael Chen", email: "michael.chen@example.com", role: "Editor", registeredAt: "2024-12-01" },
+]
+
+// Last registered companies
+const lastRegisteredCompanies = [
+  {
+    id: 1,
+    name: "Creative Studios Inc.",
+    poc: "Emma Johnson",
+    email: "emma@creativestudios.com",
+    registeredAt: "2024-12-05",
+  },
+  {
+    id: 2,
+    name: "MediaPro Productions Ltd.",
+    poc: "Michael Chen",
+    email: "michael@mediapro.com",
+    registeredAt: "2024-12-03",
+  },
+  {
+    id: 3,
+    name: "Digital Innovations Co.",
+    poc: "Lisa Anderson",
+    email: "lisa@digitalinnovations.com",
+    registeredAt: "2024-11-28",
+  },
+  { id: 4, name: "NextGen Studios", poc: "David Brown", email: "david@nextgenstudios.com", registeredAt: "2024-11-25" },
+]
+
+const COLORS = ["#DBA21A", "#64748b"]
+
 
   // Get top departments
   const departmentCounts = applications.reduce(
@@ -131,14 +199,14 @@ export default function DashboardHome() {
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-slate-600 text-sm font-medium">Top Rated</p>
+                <p className="text-slate-600 text-sm font-medium">Rejected Applications</p>
                 <p className="text-3xl font-bold text-slate-900 mt-2">{topRatedApps}</p>
                 <p className="text-xs text-slate-500 mt-2">
                   {applications.length > 0 ? ((topRatedApps / applications.length) * 100).toFixed(0) : 0}% of total
                 </p>
               </div>
-              <div className="p-3 bg-yellow-100 rounded-lg">
-                <Target className="w-5 h-5 text-yellow-600" />
+              <div className="p-3 bg-red-100 rounded-lg">
+                <BanIcon className="w-5 h-5 text-red-600" />
               </div>
             </div>
           </div>
@@ -159,11 +227,174 @@ export default function DashboardHome() {
           <div className="bg-white rounded-lg border border-slate-200 p-6">
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-slate-900">Platform Activity</h3>
-              <p className="text-sm text-slate-600 mt-1">Monthly trends over the year</p>
+              <p className="text-sm text-slate-600 mt-1">Monthly visits over the year</p>
             </div>
             <LineChartOne />
           </div>
         </div>
+        
+                {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Language Visits Chart */}
+          <div className="bg-card border border-border rounded-lg p-6">
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-foreground">Visits by Language</h3>
+              <p className="text-sm text-muted-foreground mt-1">English vs Arabic visitor distribution</p>
+            </div>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={languageVisitsData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ payload }) => `${payload.language} (${payload.percentage}%)`}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="visits"
+                >
+                  {languageVisitsData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Campaign/UTM Source Visits Chart */}
+          <div className="bg-card border border-border rounded-lg p-6">
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-foreground">Traffic by Source</h3>
+              <p className="text-sm text-muted-foreground mt-1">Campaign and UTM tracking analysis</p>
+            </div>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={campaignData} layout="vertical" margin={{ top: 5, right: 30, left: 100, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis type="number" stroke="#64748b" />
+                <YAxis dataKey="source" type="category" stroke="#64748b" width={90} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Legend />
+                <Bar dataKey="visits" fill="#DBA21A" radius={[0, 8, 8, 0]} />
+                <Bar dataKey="conversions" fill="#10b981" radius={[0, 8, 8, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Users and Companies Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Last Registered Users */}
+          <div className="bg-card border border-border rounded-lg overflow-hidden">
+            <div className="border-b border-border px-6 py-4">
+              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <Users className="w-5 h-5 text-blue-600" />
+                Last Registered Users
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">Recently joined members</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border bg-accent">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase">Role</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lastRegisteredUsers.map((user) => (
+                    <tr key={user.id} className="border-b border-border hover:bg-accent/50 transition-colors">
+                      <td className="px-6 py-4 text-sm text-foreground font-medium">
+                        <div>
+                          <p>{user.name}</p>
+                          <p className="text-xs text-muted-foreground">{user.email}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-muted-foreground">{user.role}</td>
+                      <td className="px-6 py-4 text-sm text-muted-foreground">{user.registeredAt}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Last Registered Companies */}
+          <div className="bg-card border border-border rounded-lg overflow-hidden">
+            <div className="border-b border-border px-6 py-4">
+              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-green-600" />
+                Last Registered Companies
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">Recently joined organizations</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border bg-accent">
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase">
+                      Company
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase">POC</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lastRegisteredCompanies.map((company) => (
+                    <tr key={company.id} className="border-b border-border hover:bg-accent/50 transition-colors">
+                      <td className="px-6 py-4 text-sm text-foreground font-medium">
+                        <div>
+                          <p>{company.name}</p>
+                          <p className="text-xs text-muted-foreground">{company.email}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-muted-foreground">{company.poc}</td>
+                      <td className="px-6 py-4 text-sm text-muted-foreground">{company.registeredAt}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Analytics */}
+        <div className="bg-card border border-border rounded-lg p-6">
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-foreground">Campaign Performance Trends</h3>
+            <p className="text-sm text-muted-foreground mt-1">Weekly visits across all traffic sources</p>
+          </div>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={campaignData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis dataKey="source" stroke="#64748b" />
+              <YAxis stroke="#64748b" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "8px",
+                }}
+              />
+              <Legend />
+              <Line type="monotone" dataKey="visits" stroke="#DBA21A" strokeWidth={3} dot={{ fill: "#DBA21A", r: 6 }} />
+              <Line
+                type="monotone"
+                dataKey="conversions"
+                stroke="#10b981"
+                strokeWidth={3}
+                dot={{ fill: "#10b981", r: 6 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
 
         {/* Overview Chart */}
         <div className="bg-white rounded-lg border border-slate-200 p-6">
